@@ -40,6 +40,8 @@ Part 1: Discussion
 # Create your classes and class methods
 
 class Student(object):
+  """Student class"""
+
     def __init__(self, first_name, last_name, address):
         self.first_name = first_name
         self.last_name = last_name
@@ -47,11 +49,15 @@ class Student(object):
 
 
 class Question(object):
+  """Question class"""
+
     def __init__(self, question, correct_answer):
         self.question = question
         self.correct_answer = correct_answer
 
     def ask_and_evaluate(self):
+      """Ask and evaluest Question class objects"""
+
         print self.question
         user_answer  =raw_input("Your answer:\n>>> ")
         if user_answer == self.correct_answer:
@@ -60,16 +66,21 @@ class Question(object):
 
 
 class Exam(object):
+  """Exam class"""
     def __init__(self, name):
         self.name = name
         self.questions = []
 
 
     def add_question(self, question, correct_answer):
+      """Adds questions to our Exam class self.questions list"""
+      
         Question(question, correct_answer)
         self.questions.extend([question, correct_answer])
 
     def administer(self):
+      """Administers the exam and keeps score"""
+
         score = 0
         for question,correct_answer in zip(self.questions[::2],self.questions[1::2]):
             if Question(question, correct_answer).ask_and_evaluate():
@@ -81,8 +92,11 @@ class Exam(object):
 
 
 class Quiz(Exam):
+  """Quiz - subclass of Exam"""
 
     def administer(self):
+      """Exam administer() method adjusted to return True for over half 
+        correct questions and False otherwise"""
         score = super(Quiz, self).administer()
         if score >= (len(self.questions)/2.)/2.:
             return True
